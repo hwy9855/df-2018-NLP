@@ -1,6 +1,12 @@
 import pandas as pd
 import numpy as np
+import re
 import jieba
+
+
+def hasNumbers(inputString):
+    return bool(re.search(r'\d', inputString))
+
 
 def get_idx(vocab, word):
     for i in range(len(vocab)):
@@ -53,12 +59,12 @@ if __name__ == '__main__':
     # 读入数据
     data = pd.read_csv('../data/train.csv')
 
-    high_w_txt = open('../data/sentiment_words.txt')
-    high_w = high_w_txt.readlines()
-    sentiment_words = list()
-    sentiment_id = list()
-    for line in high_w:
-        sentiment_words.append(line.split('\n')[0])
+    # high_w_txt = open('../data/sentiment_words.txt')
+    # high_w = high_w_txt.readlines()
+    # sentiment_words = list()
+    # sentiment_id = list()
+    # for line in high_w:
+    #     sentiment_words.append(line.split('\n')[0])
 
     content = data['content']
 
@@ -74,7 +80,7 @@ if __name__ == '__main__':
     a = dict()
     for i in range(content.count()):
         for w in content_list[i]:
-            if w not in stop_words:
+            if w not in stop_words and not hasNumbers(w):
                 if w not in a:
                     a[w] = 1
                 else:
@@ -90,21 +96,21 @@ if __name__ == '__main__':
 
     vocab = list()
 
-    s = 0
+    # s = 0
     for w in a:
         vocab.append(w)
-        if w in sentiment_words:
-            sentiment_id.append(s)
-        s += 1
-    print(s)
+        # if w in sentiment_words:
+        #     sentiment_id.append(s)
+        # s += 1
+    # print(s)
 
-    high_weight_txt = open('../high_weight.txt', 'w')
-    for i in sentiment_id:
-        high_weight_txt.write(str(i))
-        high_weight_txt.write('\n')
+    # high_weight_txt = open('../high_weight.txt', 'w')
+    # for i in sentiment_id:
+    #     high_weight_txt.write(str(i))
+    #     high_weight_txt.write('\n')
 
-    vocab_txt = open('../vocab_sentiment.txt', 'w')
-    vec_txt = open('../content_vec_sentiment.csv', 'w')
+    vocab_txt = open('../vocab_withoutD.txt', 'w')
+    vec_txt = open('../content_vec_withoutD.csv', 'w')
     #tfidf_txt = open('../tf_idf.csv', 'w')
     content_vec = doc2vec(content_list, vocab)
     #tf_idf = tfidf(content_vec)

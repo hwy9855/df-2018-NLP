@@ -68,4 +68,19 @@ class Bdc():
         ftc = Bdc.__calculate_ftc(fc, data_vec, subject_list, k)
         ptc = Bdc.__calculate_ptc(ftc, fcv, data_vec, k)
         bdc = Bdc.__calculate_bdc(ptc, data_vec, k)
+
         return bdc
+
+    @staticmethod
+    def cal_bdc_with_vec(data_vec, subject_list, k):
+        fc = Bdc.__calculate_fc(data_vec, subject_list)
+        fcv = list(fc.values())
+        ftc = Bdc.__calculate_ftc(fc, data_vec, subject_list, k)
+        ptc = Bdc.__calculate_ptc(ftc, fcv, data_vec, k)
+        bdc = Bdc.__calculate_bdc(ptc, data_vec, k)
+        res_vec = np.zeros(data_vec.shape)
+        for i in range(res_vec.shape[0]):
+            for j in range(res_vec.shape[1]):
+                if data_vec[i][j] > 0:
+                    res_vec[i][j] = bdc[j]
+        return res_vec
