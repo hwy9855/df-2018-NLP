@@ -72,3 +72,30 @@ class GetResult():
                 res.write(',')
                 res.write('0,\n')
 
+    @staticmethod
+    def res2doc_mul(res_id, res_subject, value_list):
+        subject_voacb = GetResult.__get_subject_vocab()
+        res = open('../res.csv', 'w')
+        res.write('content_id,subject,sentiment_value,sentiment_word\n')
+        for i in range(len(res_id)):
+            for l in range(len(res_subject[i])):
+                res.write(res_id[i])
+                res.write(',')
+                res.write(subject_voacb[res_subject[i][l]])
+                res.write(',')
+                res.write(str(value_list[i][l]))
+                res.write(',\n')
+
+    @staticmethod
+    def res2doc_sentiment(res_id, res_subject, res_sentiment):
+        subject_voacb = GetResult.__get_subject_vocab()
+        res = open('../res_sentiment.csv', 'w')
+        res.write('content_id,subject,sentiment_value,sentiment_word\n')
+        for i in range(len(res_id)):
+            res.write(res_id[i])
+            res.write(',')
+            res.write(subject_voacb[res_subject[i]])
+            res.write(',')
+            res.write(str(int(res_sentiment[i])))
+            res.write(',\n')
+

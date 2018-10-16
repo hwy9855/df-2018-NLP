@@ -15,7 +15,6 @@ if __name__ == '__main__':
     stat['1'] = 0
     for i in range(len(sentiment_words)):
         print(sentiment_words[i])
-        if sentiment_words[i] != 0:
-            stat[str(sentiment_values[i])] += 1
+        stat[str(sentiment_values[i])] += 1
     print(stat)
 

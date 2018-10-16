@@ -6,7 +6,7 @@ import pandas as pd
 
 
 def hasNumbers(inputString):
-    return bool(re.search(r'\d', inputString))
+    return bool(re.search(r'\w', inputString)) or bool(re.search(r'\s', inputString))
 
 
 if __name__ == '__main__':

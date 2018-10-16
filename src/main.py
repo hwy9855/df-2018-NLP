@@ -116,7 +116,6 @@ def res2file(predict_subject, predict_value, subject_vocab):
         i += 1
 
 def get_res(iter):
-    print(iter)
     train_vec = pd.read_csv('../content_vec_withoutD.csv', header=None)
     test_file = pd.read_csv('../data/test_public.csv')
 
@@ -124,16 +123,15 @@ def get_res(iter):
     train_vec = np.array(train_vec)
     # train_vec_sentiment = np.array(train_vec_sentiment)
     data = pd.read_csv('../data/train.csv')
-    subject_vocab = list()
-    for i in data['subject']:
-        if i not in subject_vocab:
-            subject_vocab.append(i)
+    subject_vocab = list(['价格', '配置', '操控', '舒适性', '油耗', '动力', '内饰', '安全性', '空间', '外观'])
+
     subject_list = list()
     for i in data['subject']:
         for k in range(10):
             if subject_vocab[k] == i:
                 subject_list.append(k)
                 break
+
     value_list = list()
     for i in data['sentiment_value']:
         value_list.append(i)
@@ -230,8 +228,8 @@ def testF1_word2vec(iter):
 
 def cvtest():
     res = open('../res.txt1', 'w')
-    params = { 'boosting_type':'gbdt', 'num_leaves':80, 'reg_alpha':0.1, 'reg_lambda':1,
-              'max_depth':8, 'objective':'binary',
+    params = { 'boosting_type':'gbdt', 'num_leaves':55, 'reg_alpha':0.1, 'reg_lambda':0,
+              'max_depth':15, 'objective':'binary',
               'subsample':0.8, 'colsample_bytree':0.8, 'subsample_freq':1,
               'learning_rate':0.06, 'min_child_weight':1, 'random_state':20, 'n_jobs':4}
 
@@ -289,8 +287,8 @@ if __name__ == '__main__':
     # else:
     #     get_res(int(i))
     # testF1(10)
-    get_res(480)
-    # cvtest()
+    # get_res(480)
+    cvtest()
     # for i in range(50):
     #     print((i+1)*200)
     #     testF1_word2vec((i+1)*200)
