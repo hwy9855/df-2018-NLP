@@ -8,7 +8,7 @@ def hasNumbers(inputString):
     return bool(re.search(r'[a-z]+', inputString)) or \
            bool(re.search(r'[A-Z]+', inputString)) or \
            bool(re.search(r'[0-9]+', inputString)) or \
-           bool(re.search(r'[!*.*,*·*（*）*/*～*…*~*#*=*\-*(*)*—*]+', inputString)) or \
+           bool(re.search(r'[!*.*,*·*（*）*/*～*…*~*#*=*\-*(*)*—*，*。*、*]+', inputString)) or \
            bool(re.search(r'\s', inputString))
 
 

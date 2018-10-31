@@ -5,16 +5,15 @@ from lgb import Lgb
 from doc2vec import Doc2Vec
 from getResult import GetResult
 
+
 def get_res(iter, baseline):
     train_vec = pd.read_csv('../content_vec_withoutD.csv', header=None)
     test_file = pd.read_csv('../data/test_public.csv')
-
     # train_vec_sentiment = pd.read_csv('../content_vec_sentiment.csv', header=None)
     train_vec = np.array(train_vec)
     # train_vec_sentiment = np.array(train_vec_sentiment)
     data = pd.read_csv('../data/train.csv')
     subject_vocab = list(['价格', '配置', '操控', '舒适性', '油耗', '动力', '内饰', '安全性', '空间', '外观'])
-
     subject_list = list()
     for i in data['subject']:
         for k in range(10):
@@ -47,5 +46,5 @@ def get_res(iter, baseline):
     GetResult.res2doc_mul(res_id, res_subject, value_list)
 
 if __name__ == '__main__':
-    baseline = pd.read_csv('~/submit.csv')
-    get_res(100, baseline)
+    baseline = pd.read_csv('../data/base635.csv')
+    get_res(120, baseline)

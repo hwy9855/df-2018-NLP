@@ -268,12 +268,16 @@ def cvtest():
             params, data_train, num_boost_round=10000, nfold=5, stratified=False, shuffle=True, metrics='rmse',
             early_stopping_rounds=50, verbose_eval=50, show_stdv=True, seed=0)
         res.write(str(len(clf['rmse-mean'])))
-        res.write(',')
+        res.write(' ')
+        res.write(str(clf['rmse-mean'][-1]))
+        res.write('\n')
     data_train = lgb.Dataset(train_vec, subject_list)
     clf = lgb.cv(
         params, data_train, num_boost_round=10000, nfold=5, stratified=False, shuffle=True, metrics='rmse',
         early_stopping_rounds=50, verbose_eval=50, show_stdv=True, seed=0)
     res.write(str(len(clf['rmse-mean'])))
+
+
 
 if __name__ == '__main__':
     # i = input('0 for test\n1 for run\n')
